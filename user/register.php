@@ -25,7 +25,6 @@ if (mysqli_num_rows($check_email_exe) > 0) {
     exit();
 }
 
-
 $sql = "INSERT INTO `users` (
         `id`, 
     `user_fname`, 

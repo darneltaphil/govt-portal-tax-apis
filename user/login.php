@@ -1,5 +1,4 @@
 <?php
-// if (isset($_POST) && $_SERVER['REQUEST_METHOD'] === 'POST') {
 include("../services/header-filter.php");
 include("../inc/functions.php");
 include("../db/index.php");
@@ -8,8 +7,6 @@ $requestBody = json_decode($requestBody, true);;
 
 $res = [];
 $error  = [];
-//var_dump(apache_request_headers());
-
 
 if (empty($requestBody['email'])) {
     $error[] = "Email is required";
@@ -56,11 +53,3 @@ if (count($row) > 0) {
     echo json_encode($res);
     exit;
 }
-// } else {
-//     $res = [];
-//     $res['status'] = false;
-//     $res['message'] = "Method Not Allowed";
-//     http_response_code(405);
-//     echo json_encode($res);
-//     exit();
-// }
