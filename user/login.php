@@ -38,7 +38,7 @@ if (count($row) > 0) {
     $LOCALSTORAGE['lastname'] = $row[0]['user_sname'];
     $LOCALSTORAGE['email'] = $row[0]['user_email'];
     $LOCALSTORAGE['name'] = $row[0]['user_fname'] . ' ' . $row[0]['user_sname'];
-    $LOCALSTORAGE['key'] =  $row[0]['id'];
+    $LOCALSTORAGE['key'] =  $row[0]['user_id'];
 
     $res['data']      = $LOCALSTORAGE;
     $res['redirect']    = "dashboard";

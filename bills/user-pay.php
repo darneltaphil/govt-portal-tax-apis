@@ -32,7 +32,7 @@ if ($paymentType === "amount-due") {
     remainingBalance='0.00',
     paidOn= '" . date('Y-m-d') . "', 
     paymentMethod='$paymentMethod', 
-    amountPaid=$amount 
+    amountPaid=$originalAmount 
     WHERE bill_id=$billNumber";
     $e = mysqli_query($dbc, $s);
 }

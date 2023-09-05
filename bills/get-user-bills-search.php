@@ -13,8 +13,9 @@ if (empty($requestBody['user_id'])) {
 }
 
 $user_id =  mysqli_real_escape_string($dbc, clean_text($requestBody['user_id']));
+$billTypeId =  mysqli_real_escape_string($dbc, clean_text($requestBody['billTypeId']));
 
-$exe = mysqli_query($dbc, "SELECT * FROM bill_view WHERE user =$user_id");
+$exe = mysqli_query($dbc, "SELECT * FROM bill_view WHERE user =$user_id AND billTypeId=$billTypeId");
 if (mysqli_num_rows($exe) > 0) {
     $res['status'] = true;
     $res['data'] = mysqli_fetch_all($exe, MYSQLI_ASSOC);
