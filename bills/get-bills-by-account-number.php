@@ -3,7 +3,7 @@ include("../services/header-filter.php");
 include("../inc/functions.php");
 include("../db/index.php");
 $requestBody = file_get_contents('php://input');
-$requestBody = json_decode($requestBody, true);;
+$requestBody = json_decode($requestBody, true);
 
 if (empty($requestBody['name']) && empty($requestBody['address']) && empty($requestBody['account'])) {
     $res['status'] = false;

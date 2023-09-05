@@ -26,11 +26,11 @@ if (mysqli_num_rows($check_email_exe) > 0) {
 }
 
 $sql = "INSERT INTO `users` (
-        `id`, 
+    `user_id`, 
     `user_fname`, 
     `user_sname`, 
-    `user_email`, 
     `user_mobile`, 
+    `user_email`, 
     `user_password`, 
     `user_address`, 
     `user_city`, 
@@ -39,13 +39,13 @@ $sql = "INSERT INTO `users` (
     `user_country`, 
     `user_account_number`,
     `user_registration_date`,
-    `user_is_active`    ) 
+    `user_is_active`) 
     VALUES (
         NULL, 
          '" . $fname . " ',
          '" . $sname . "', 
-         '" . $email . "', 
          '" . $mobile . "', 
+         '" . $email . "', 
          '" . convert_string("encrypt", $pwd) . "', 
          '" . $address . "', 
          '" . $city . "', 
@@ -59,6 +59,83 @@ $sql = "INSERT INTO `users` (
 
 $exe = mysqli_query($dbc, $sql);
 if ($exe) {
+
+    /**
+     * Getting the user details back.
+     * I should have used LAST_INSERTED_ROW, but the SQL connection does not stay open.
+     */
+    $getSql = "SELECT * FROM users WHERE user_email='$email'";
+    $getExe = mysqli_query($dbc, $getSql);
+    if ($getExe) {
+        $userId = mysqli_fetch_row($getExe)[0];
+        $r_1 = rand(1, 10000) / 100;
+        $r_2 = rand(1, 10000) / 100;
+        $r_3 = rand(1, 10000) / 100;
+        // Data to be inserted (you can fetch this from an array or any other source)
+        $dataToInsert = [
+            ["1", "Property Tax",  rand(10000, 999999), number_format($r_1, 2), '2023-09-30', number_format($r_1, 2), "MOBILE HOME NOTICE FOR THE EVANS COUNTY", "unpaid", "'" . date('Y-m-d') . "'"],
+            ["1", "Property Tax",  rand(10000, 999999), number_format($r_2, 2), '2023-09-30', number_format($r_2 - 1, 2), "MOBILE HOME NOTICE FOR THE EVANS COUNTY", "partial", "'" . date('Y-m-d') . "'"],
+            ["1", "Property Tax",  rand(10000, 999999), number_format($r_3, 2), '2023-09-30', '0.00', "MOBILE HOME NOTICE FOR THE EVANS COUNTY", "paid", "'" . date('Y-m-d') . "'"],
+
+            ["2", "DMV",  rand(10000, 999999), number_format($r_2, 2), '2023-09-30', number_format($r_2, 2), "DMV", "unpaid", "'" . date('Y-m-d') . "'"],
+            ["2", "DMV",  rand(10000, 999999), number_format($r_1, 2), '2023-09-30', number_format($r_1 - 1, 2), "DMV", "partial", "'" . date('Y-m-d') . "'"],
+            ["2", "DMV",  rand(10000, 999999), number_format($r_3, 2), '2023-09-30', '0.00', "DMV", "paid", "'" . date('Y-m-d') . "'"],
+
+            ["3", "Water / Sewer",  rand(10000, 999999), number_format($r_1, 2), '2023-09-30', number_format($r_1, 2), "WATTER / SEWER BILL", "unpaid", "'" . date('Y-m-d') . "'"],
+            ["3", "Water / Sewer",  rand(10000, 999999), number_format($r_3, 2), '2023-09-30', number_format($r_3 - 1, 2), "WATTER / SEWER BILL", "partial", "'" . date('Y-m-d') . "'"],
+            ["3", "Water / Sewer",  rand(10000, 999999), number_format($r_1, 2), '2023-09-30', '0.00', "WATTER / SEWER BILL", "paid",  "'" . date('Y-m-d') . "'"],
+        ];
+
+        // Prepare and execute INSERT queries in a loop
+        foreach ($dataToInsert as $data) {
+            $billTypeId = $data[0];
+            $billTypeName = $data[1];
+            $billNumber = $data[2];
+            $totalDueAmount = $data[3];
+            $dueDate = $data[4];
+            $remainingBalance = $data[5];
+            $title = $data[6];
+            $status = $data[7];
+            $statementDate = $data[8];
+
+            $billSql =  " INSERT INTO `bills` (
+                `bill_id`, 
+                `user`, 
+                `billTypeId`, 
+                `billType`, 
+                `billNumber`, 
+                `totalDueAmount`, 
+                `dueDate`, 
+                `remainingBalance`, 
+                `title`, 
+                `status`, 
+                `statementDate`, 
+                `admin`, 
+                `paymentMethod`,
+                `paidBy`,
+                `paidOn`,
+                amountPaid )        
+               VALUES (
+                NULL, 
+               '$userId', 
+               '$billTypeId', 
+               '$billTypeName', 
+               '$billNumber', 
+               '$totalDueAmount', 
+               '$dueDate', 
+               '$remainingBalance', 
+               '$title', 
+               '$status', 
+               $statementDate, 
+               NULL, 
+               NULL,
+               NULL,
+               NULL,
+               NULL);";
+
+            mysqli_query($dbc, $billSql);
+        }
+    }
 
     $res['status'] = true;
     $res['message'] = "Registration Successful";
