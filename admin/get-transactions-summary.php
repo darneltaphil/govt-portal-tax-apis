@@ -13,19 +13,24 @@ if (empty($requestBody['user_id'])) {
 }
 
 $user_id =  mysqli_real_escape_string($dbc, clean_text($requestBody['user_id']));
-$from =  mysqli_real_escape_string($dbc, clean_text($requestBody['from']));
-$to =  mysqli_real_escape_string($dbc, clean_text($requestBody['to']));
-
-$exe = mysqli_query($dbc, "SELECT * FROM bill_view WHERE user =$user_id AND status='paid' AND (paidOn BETWEEN '$from' AND '$to') ORDER BY paidOn DESC");
+//echo "SELECT * FROM bill_view WHERE `admin` =$user_id AND status='paid' AND paidOn='" . date('Y-m-d') . "'";
+$exe = mysqli_query($dbc, "SELECT * FROM bill_view WHERE `admin` =$user_id AND status='paid' AND paidOn='" . date('Y-m-d') . "'");
+$count = mysqli_query($dbc, "SELECT count(*) as tx FROM bill_view WHERE `admin` =$user_id AND status='paid' AND paidOn='" . date('Y-m-d') . "'");
+$amount = mysqli_query($dbc, "SELECT SUM(amountPaid) FROM bill_view WHERE `admin` =$user_id AND status='paid' AND paidOn='" . date('Y-m-d') . "'");
 if (mysqli_num_rows($exe) > 0) {
     $res['status'] = true;
     $res['data'] = mysqli_fetch_all($exe, MYSQLI_ASSOC);
+    $res['tx'] = mysqli_fetch_row($count);
+    $res['amount'] = mysqli_fetch_row($amount);
     echo json_encode($res);
     exit();
 } else {
     $res['status'] = true;
     $res['data'] = [];
-    $res['message'] = "No Bills found";
+    $res['tx'] = 0;
+    $res['amount'] = 0;
+
+    $res['message'] = "No transactions found";
     echo json_encode($res);
     exit();
 }

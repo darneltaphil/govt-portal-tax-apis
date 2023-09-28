@@ -69,21 +69,23 @@ if ($exe) {
     if ($getExe) {
         $userId = mysqli_fetch_row($getExe)[0];
         $r_1 = rand(1, 10000) / 100;
+        $r_11 = rand(1, 10000) / 100;
         $r_2 = rand(1, 10000) / 100;
         $r_3 = rand(1, 10000) / 100;
         // Data to be inserted (you can fetch this from an array or any other source)
         $dataToInsert = [
-            ["1", "Property Tax",  rand(10000, 999999), number_format($r_1, 2), '2023-09-30', number_format($r_1, 2), "MOBILE HOME NOTICE FOR THE EVANS COUNTY", "unpaid", "2023-08-15", "0.00", '2023-09-06'],
-            ["1", "Property Tax",  rand(10000, 999999), number_format($r_2, 2), '2023-09-30', number_format($r_2 - 9, 2), "MOBILE HOME NOTICE FOR THE EVANS COUNTY", "partial", "2023-08-15", "9.00", '2023-09-06'],
-            ["1", "Property Tax",  rand(10000, 999999), number_format($r_3, 2), '2023-09-30', '0.00', "MOBILE HOME NOTICE FOR THE EVANS COUNTY", "paid", "2023-08-15", number_format($r_3, 2), '2023-09-06'],
+            ["1", "Property Tax",  rand(10000, 999999), number_format($r_1, 2), '2023-10-15', number_format($r_1, 2), "MOBILE HOME NOTICE FOR THE EVANS COUNTY", "unpaid", '2023-08-15', "0.00", null],
+            ["1", "Property Tax",  rand(10000, 999999), number_format($r_11, 2), '2023-10-15', number_format($r_11, 2), "MOBILE HOME NOTICE FOR THE EVANS COUNTY", "unpaid", '2023-08-15', "0.00", null],
+            ["1", "Property Tax",  rand(10000, 999999), number_format($r_2, 2), '2023-10-15', number_format($r_2 - 9, 2), "MOBILE HOME NOTICE FOR THE EVANS COUNTY", "partial", '2023-08-15', "9.00", null],
+            ["1", "Property Tax",  rand(10000, 999999), number_format($r_3, 2), '2023-10-15', '0.00', "MOBILE HOME NOTICE FOR THE EVANS COUNTY", "paid", '2023-08-15', number_format($r_3, 2), '2023-09-06'],
 
-            ["2", "DMV",  rand(10000, 999999), number_format($r_2, 2), '2023-09-30', number_format($r_2, 2), "DMV", "unpaid", "2023-08-15", "0.00", '2023-09-06'],
-            ["2", "DMV",  rand(10000, 999999), number_format($r_1, 2), '2023-09-30', number_format($r_1 - 1, 2), "DMV", "partial", "2023-08-15", "1.00", '2023-09-06'],
-            ["2", "DMV",  rand(10000, 999999), number_format($r_3, 2), '2023-09-30', '0.00', "DMV", "paid", "2023-08-15", number_format($r_3, 2), '2023-09-06'],
+            ["2", "DMV",  rand(10000, 999999), number_format($r_2, 2), '2023-10-15', number_format($r_2, 2), "DMV", "unpaid", '2023-08-15', "0.00", null],
+            ["2", "DMV",  rand(10000, 999999), number_format($r_1, 2), '2023-10-15', number_format($r_1 - 1, 2), "DMV", "partial", '2023-08-15', "1.00", null],
+            ["2", "DMV",  rand(10000, 999999), number_format($r_3, 2), '2023-10-15', '0.00', "DMV", "paid", '2023-08-15', number_format($r_3, 2), '2023-09-06'],
 
-            ["3", "Water / Sewer",  rand(10000, 999999), number_format($r_1, 2), '2023-09-30', number_format($r_1, 2), "WATTER / SEWER BILL", "unpaid", "2023-08-15", "0.00", '2023-09-06'],
-            ["3", "Water / Sewer",  rand(10000, 999999), number_format($r_3, 2), '2023-09-30', number_format($r_3 - 5, 2), "WATTER / SEWER BILL", "partial", "2023-08-15", "5.00", '2023-09-06'],
-            ["3", "Water / Sewer",  rand(10000, 999999), number_format($r_1, 2), '2023-09-30', '0.00', "WATTER / SEWER BILL", "paid",  "2023-08-15", number_format($r_1, 2), '2023-09-06'],
+            ["3", "Water / Sewer",  rand(10000, 999999), number_format($r_1, 2), '2023-10-15', number_format($r_1, 2), "WATTER / SEWER BILL", "unpaid", '2023-08-15', "0.00", null],
+            ["3", "Water / Sewer",  rand(10000, 999999), number_format($r_3, 2), '2023-10-15', number_format($r_3 - 5, 2), "WATTER / SEWER BILL", "partial", '2023-08-15', "5.00", null],
+            ["3", "Water / Sewer",  rand(10000, 999999), number_format($r_1, 2), '2023-10-15', '0.00', "WATTER / SEWER BILL", "paid",  '2023-08-15', number_format($r_1, 2), '2023-09-06'],
         ];
 
         // Prepare and execute INSERT queries in a loop
@@ -116,7 +118,8 @@ if ($exe) {
                 `paymentMethod`,
                 `paidBy`,
                 `paidOn`,
-                amountPaid )        
+                amountPaid,
+                paidTime )        
                VALUES (
                 NULL, 
                '$userId', 
@@ -128,12 +131,13 @@ if ($exe) {
                '$remainingBalance', 
                '$title', 
                '$status', 
-               $statementDate, 
+               '$statementDate', 
                NULL, 
                NULL,
                NULL,
                '$paidOn',
-               '$amountPaid');";
+               '$amountPaid',
+               null);";
 
             mysqli_query($dbc, $billSql);
         }

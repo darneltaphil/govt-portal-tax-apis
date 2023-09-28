@@ -25,14 +25,15 @@ $routingNumber = !empty($requestBody["routingNumber"]) ? mysqli_real_escape_stri
 $accountType = !empty($requestBody["accountType"]) ? mysqli_real_escape_string($dbc, trim($requestBody["accountType"])) : "";
 $billNumber = !empty($requestBody["billNumber"]) ? mysqli_real_escape_string($dbc, trim($requestBody["billNumber"])) : "";
 $originalAmount = !empty($requestBody["originalAmount"]) ? mysqli_real_escape_string($dbc, trim($requestBody["originalAmount"])) : "0.00";
-
+$TxId = time();
 if ($paymentType === "amount-due") {
     $s = "UPDATE bills SET 
     status = 'paid' , 
     remainingBalance='0.00',
     paidOn= '" . date('Y-m-d') . "', 
     paymentMethod='$paymentMethod', 
-    amountPaid=$originalAmount 
+    amountPaid=$originalAmount ,
+    paidTime='" . date('H:i:s') . "'
     WHERE bill_id=$billNumber";
     $e = mysqli_query($dbc, $s);
 }
@@ -42,18 +43,20 @@ if ($paymentType === "other-amount") {
     remainingBalance=$originalAmount-$amount,
     paidOn= '" . date('Y-m-d') . "',
     amountPaid = $amount, 
-    paymentMethod='$paymentMethod' 
+    paymentMethod='$paymentMethod' ,
+    paidTime='" . date('H:i:s') . "'
     WHERE bill_id=$billNumber";
     $e = mysqli_query($dbc, $s);
 }
 
 $tSql = "INSERT INTO `payments`
- SELECT  null,`bill_id`, `user`, `billTypeId`, `billType`, `billNumber`, `totalDueAmount`, `dueDate`, `remainingBalance`, `title`, `status`, `statementDate`, `admin`, `paymentMethod`, `paidBy`, `paidOn`,`amountPaid` FROM bills WHERE bill_id=$billNumber;";
+ SELECT  $TxId,`bill_id`, `user`, `billTypeId`, `billType`, `billNumber`, `totalDueAmount`, `dueDate`, `remainingBalance`, `title`, `status`, `statementDate`, `admin`, `paymentMethod`, `paidBy`, `paidOn`,`amountPaid`,`paidTime` FROM bills WHERE bill_id=$billNumber;";
 
 $tExe = mysqli_query($dbc, $tSql);
 
 
 $res['status'] = true;
 $res['message'] = "Payment successful";
+$res['data'] = $TxId;
 echo json_encode($res);
 exit();
