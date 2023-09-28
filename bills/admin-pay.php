@@ -28,7 +28,7 @@ $originalAmount = !empty($requestBody["originalAmount"]) ? mysqli_real_escape_st
 $user_id = !empty($requestBody["user_id"]) ? mysqli_real_escape_string($dbc, trim($requestBody["user_id"])) : "";
 $TxId = time();
 if ($paymentType === "amount-due") {
-    echo  $s = "UPDATE bills SET 
+    $s = "UPDATE bills SET 
     status = 'paid' , 
     remainingBalance='0.00',
     paidOn= '" . date('Y-m-d') . "', 

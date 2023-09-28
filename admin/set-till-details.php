@@ -12,7 +12,6 @@ $user2 = !empty($requestBody["user2"]) ? mysqli_real_escape_string($dbc, trim($r
 
 $find = mysqli_query($dbc, "SELECT * FROM till_balance WHERE setDate ='" . date('Y-m-d') . "'");
 if (mysqli_num_rows($find) > 0) {
-    exit();
     $exe = mysqli_query($dbc, "UPDATE `till_balance` SET `startAmount` = '$till1'  WHERE `till_balance`.`till` = '1' AND `setDate` = '" . date("Y-m-d") . "';");
     $exe_ = mysqli_query($dbc, "UPDATE `till_balance` SET `startAmount` = '$till2'  WHERE `till_balance`.`till` = '2' AND `setDate` = '" . date("Y-m-d") . "';");
 
