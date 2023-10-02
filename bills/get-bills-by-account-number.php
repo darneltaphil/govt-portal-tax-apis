@@ -17,7 +17,7 @@ if (empty($requestBody['name']) && empty($requestBody['address']) && empty($requ
 $account =  mysqli_real_escape_string($dbc, clean_text($requestBody['account']));
 $billTypeId =  mysqli_real_escape_string($dbc, clean_text($requestBody['billTypeId']));
 
-$exe = mysqli_query($dbc, "SELECT * FROM `bill_view` WHERE accountNumber =$account  AND billTypeId=$billTypeId ");
+$exe = mysqli_query($dbc, "SELECT * FROM `bill_view` WHERE user_account_number =$account  AND billTypeId=$billTypeId ");
 if (mysqli_num_rows($exe) > 0) {
     $res['status'] = true;
     $res['data'] = mysqli_fetch_all($exe, MYSQLI_ASSOC);

@@ -37,6 +37,7 @@ if (count($row) > 0) {
     $LOCALSTORAGE['firstname'] = $row[0]['user_fname'];
     $LOCALSTORAGE['lastname'] = $row[0]['user_sname'];
     $LOCALSTORAGE['email'] = $row[0]['user_email'];
+    $LOCALSTORAGE['user_role'] = $row[0]['user_role'];
     $LOCALSTORAGE['name'] = $row[0]['user_fname'] . ' ' . $row[0]['user_sname'];
     $LOCALSTORAGE['key'] =  $row[0]['user_id'];
 

@@ -2,7 +2,7 @@
 include("../services/header-filter.php");
 include("../inc/functions.php");
 include("../db/index.php");
-$exe = mysqli_query($dbc, "SELECT * FROM cities WHERE city_state >3018 AND city_state <3979");
+$exe = mysqli_query($dbc, "SELECT * FROM cities JOIN states ON state_id = city_state ORDER BY city_name ASC");
 if (mysqli_num_rows($exe) > 0) {
     $res['status'] = true;
     $res['data'] = mysqli_fetch_all($exe, MYSQLI_ASSOC);
