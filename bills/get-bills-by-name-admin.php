@@ -17,7 +17,8 @@ $name_split = explode(" ", $name);
 $address =  mysqli_real_escape_string($dbc, clean_text($requestBody['address']));
 $account =  mysqli_real_escape_string($dbc, clean_text($requestBody['account']));
 $billTypeId =  mysqli_real_escape_string($dbc, clean_text($requestBody['billTypeId']));
-$sql = "SELECT * FROM `bill_view` WHERE userFullName LIKE '%$name_split[0]%' AND billTypeId=$billTypeId ";
+$sql = "SELECT * FROM `bill_view` WHERE userFullName LIKE '%$name_split[0]%' ";
+// $sql = "SELECT * FROM `bill_view` WHERE userFullName LIKE '%$name_split[0]%' AND billTypeId=$billTypeId ";
 $exe = mysqli_query($dbc, $sql);
 $row = mysqli_fetch_all($exe, MYSQLI_ASSOC);
 if (sizeof($row) > 0) {

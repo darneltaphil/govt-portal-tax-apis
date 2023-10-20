@@ -50,7 +50,7 @@ if ($paymentType === "amount-due") {
 
     $paymentAmount = $originalAmount;
     $fees = (($originalAmount * 0.03) < 1.80)
-        ?  1.8
+        ?  1.80
         : ($originalAmount * 0.03);
 }
 
@@ -64,12 +64,8 @@ if ($paymentType === "other-amount") {
 
     $paymentAmount = $amount;
     $fees = (($amount * 0.03) < 1.80)
-        ?  1.8
+        ?  1.80
         : ($amount * 0.03);
-}
-
-if ($penaltyAmount > 0) {
-    // $paymentAmount = $paymentAmount + $penaltyAmount;
 }
 
 if ($userId == '') {
@@ -83,42 +79,42 @@ if ($userId == '') {
 }
 
 $tSql = "INSERT INTO `payments` (
-`paymentId`, 
-`paymentBill`, 
-`user`, 
-`paymentBy`, 
-`paymentByName`, 
-`paymentByWho`, 
-`paymentAmount`, 
-`paymentDate`, 
-`paymentTime`, 
-`paymentPenalty`, 
-`paymentAdjusted`, 
-`paymentAdjustedBy`, 
-`paymentType`, 
-`paymentMethod`, 
-`paymentFee`, 
-`paymentMulti`
-) 
+        `paymentId`, 
+        `paymentBill`, 
+        `user`, 
+        `paymentBy`, 
+        `paymentByName`, 
+        `paymentByWho`, 
+        `paymentAmount`, 
+        `paymentDate`, 
+        `paymentTime`, 
+        `paymentPenalty`, 
+        `paymentAdjusted`, 
+        `paymentAdjustedBy`, 
+        `paymentType`, 
+        `paymentMethod`, 
+        `paymentFee`, 
+        `paymentMulti`
+        ) 
 
-VALUES (
-    $TxId, 
-'$billId', 
-'$userId', 
-$paidBy, 
-'$paidByName', 
-'$paidByWho', 
-'$paymentAmount', 
-'" . date('Y-m-d') . "', 
-'" . date('H:i:s') . "', 
-$penaltyId, 
-'0', 
-NULL, 
-'$paymentType', 
-'$paymentMethod', 
-'$fees', 
-'0');
- ";
+        VALUES (
+            $TxId, 
+        '$billId', 
+        '$userId', 
+        $paidBy, 
+        '$paidByName', 
+        '$paidByWho', 
+        '$paymentAmount', 
+        '" . date('Y-m-d') . "', 
+        '" . date('H:i:s') . "', 
+        $penaltyId, 
+        '0', 
+        NULL, 
+        '$paymentType', 
+        '$paymentMethod', 
+        '$fees', 
+        '0');
+        ";
 
 $tExe = mysqli_query($dbc, $tSql);
 

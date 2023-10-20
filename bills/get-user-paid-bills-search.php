@@ -16,7 +16,9 @@ $userId =  mysqli_real_escape_string($dbc, clean_text($requestBody['userId']));
 $from =  mysqli_real_escape_string($dbc, clean_text($requestBody['from']));
 $to =  mysqli_real_escape_string($dbc, clean_text($requestBody['to']));
 
-$exe = mysqli_query($dbc, "SELECT * FROM bill_view WHERE user_id =$userId AND status='paid' AND (paidOn BETWEEN '$from' AND '$to') ORDER BY paidOn DESC");
+// SELECT * FROM paid_bill_view WHERE user_id =$userId AND billStatus='paid' ORDER BY paymentDate DESC
+
+$exe = mysqli_query($dbc, "SELECT * FROM paid_bill_view WHERE user_id =$userId AND billStatus='paid' AND (paymentDate BETWEEN '$from' AND '$to') ORDER BY paymentDate DESC");
 if (mysqli_num_rows($exe) > 0) {
     $res['status'] = true;
     $res['data'] = mysqli_fetch_all($exe, MYSQLI_ASSOC);

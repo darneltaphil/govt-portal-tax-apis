@@ -114,19 +114,19 @@ if ($exe) {
                 "9.00",
                 null
             ],
-            [
-                "1",
-                "Property Tax",
-                rand(10000, 999999),
-                number_format($r_3, 2),
-                '2023-10-15',
-                '0.00',
-                "MOBILE HOME NOTICE FOR THE EVANS COUNTY",
-                "paid",
-                '2023-08-15',
-                number_format($r_3, 2),
-                '2023-09-06'
-            ],
+            // [
+            //     "1",
+            //     "Property Tax",
+            //     rand(10000, 999999),
+            //     number_format($r_3, 2),
+            //     '2023-10-15',
+            //     '0.00',
+            //     "MOBILE HOME NOTICE FOR THE EVANS COUNTY",
+            //     "paid",
+            //     '2023-08-15',
+            //     number_format($r_3, 2),
+            //     '2023-09-06'
+            // ],
 
             [
                 "2",
@@ -154,19 +154,19 @@ if ($exe) {
                 "1.00",
                 null
             ],
-            [
-                "2",
-                "DMV",
-                rand(10000, 999999),
-                number_format($r_3, 2),
-                '2023-10-15',
-                '0.00',
-                "DMV",
-                "paid",
-                '2023-08-15',
-                number_format($r_3, 2),
-                '2023-09-06'
-            ],
+            // [
+            //     "2",
+            //     "DMV",
+            //     rand(10000, 999999),
+            //     number_format($r_3, 2),
+            //     '2023-10-15',
+            //     '0.00',
+            //     "DMV",
+            //     "paid",
+            //     '2023-08-15',
+            //     number_format($r_3, 2),
+            //     '2023-09-06'
+            // ],
 
             [
                 "3",
@@ -194,19 +194,19 @@ if ($exe) {
                 "5.00",
                 null
             ],
-            [
-                "3",
-                "Water / Sewer",
-                rand(10000, 999999),
-                number_format($r_1, 2),
-                '2023-10-15',
-                '0.00',
-                "WATTER / SEWER BILL",
-                "paid",
-                '2023-08-15',
-                number_format($r_1, 2),
-                '2023-09-06'
-            ],
+            // [
+            //     "3",
+            //     "Water / Sewer",
+            //     rand(10000, 999999),
+            //     number_format($r_1, 2),
+            //     '2023-10-15',
+            //     '0.00',
+            //     "WATTER / SEWER BILL",
+            //     "paid",
+            //     '2023-08-15',
+            //     number_format($r_1, 2),
+            //     '2023-09-06'
+            // ],
         ];
 
         // Prepare and execute INSERT queries in a loop
