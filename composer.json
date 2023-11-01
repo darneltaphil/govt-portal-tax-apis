@@ -1,0 +1,17 @@
+{
+    "name": "kofano/vision-demo-api",
+    "require": {
+        "twilio/sdk": "^7.12"
+    },
+    "autoload": {
+        "psr-4": {
+            "Kofano\\VisionDemoApi\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "darneltaphil",
+            "email": "darneltaphil@gmail.com"
+        }
+    ]
+}

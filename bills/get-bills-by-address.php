@@ -12,10 +12,7 @@ if (empty($requestBody['name']) && empty($requestBody['address']) && empty($requ
     exit();
 }
 
-// $name =  mysqli_real_escape_string($dbc, clean_text($requestBody['name']));
 $address =  mysqli_real_escape_string($dbc, clean_text($requestBody['address']));
-// $account =  mysqli_real_escape_string($dbc, clean_text($requestBody['account']));
-// echo "SELECT * FROM `bill_view` WHERE user_address =$address";
 $billTypeId =  mysqli_real_escape_string($dbc, clean_text($requestBody['billTypeId']));
 
 $exe = mysqli_query($dbc, "SELECT * FROM `bill_view` WHERE user_address ='$address'  AND billTypeId=$billTypeId ");
