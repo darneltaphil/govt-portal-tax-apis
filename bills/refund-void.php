@@ -23,9 +23,11 @@ $amountPaid = $res_[0]['paymentAmount'];
 $exe = mysqli_query($dbc, "UPDATE bills SET billStatus='unpaid', billRemainingBalance='$amountPaid' WHERE billId='$billId'");
 
 $delSql = "UPDATE payments SET paymentAdjusted=1  WHERE paymentBill='$billId'";
-// $delSql = "DELETE FROM payments WHERE paymentBill=$billId";
 $delExe = mysqli_query($dbc, $delSql);
 
+// if ($res_[0]['paymentMethod']=='cash'){
+
+// }
 $message = '';
 if ($action == 'refund') {
     $message = 'Payment Refunded Successfully';

@@ -25,6 +25,7 @@ if (mysqli_num_rows($check_email_exe) > 0) {
     exit();
 }
 
+
 $sql = "INSERT INTO `users` (
     `user_id`, 
     `user_fname`, 
@@ -81,9 +82,9 @@ if ($exe) {
                 "Property Tax",
                 rand(10000, 999999),
                 number_format($r_1, 2),
-                '2023-10-15',
+                '2023-12-15',
                 number_format($r_1, 2),
-                "MOBILE HOME NOTICE FOR THE EVANS COUNTY",
+                "MOBILE HOME NOTICE FOR THE CLINTON COUNTY",
                 "unpaid",
                 '2023-08-15',
                 "0.00",
@@ -94,9 +95,9 @@ if ($exe) {
                 "Property Tax",
                 rand(10000, 999999),
                 number_format($r_11, 2),
-                '2023-10-15',
+                '2023-12-15',
                 number_format($r_11, 2),
-                "MOBILE HOME NOTICE FOR THE EVANS COUNTY",
+                "REAL ESTATE TAXES FOR SECOND HALF 2022",
                 "unpaid",
                 '2023-08-15',
                 "0.00",
@@ -107,9 +108,9 @@ if ($exe) {
                 "Property Tax",
                 rand(10000, 999999),
                 number_format($r_2, 2),
-                '2023-10-15',
+                '2023-12-15',
                 number_format($r_2 - 9, 2),
-                "MOBILE HOME NOTICE FOR THE EVANS COUNTY", "partial",
+                "MOBILE HOME NOTICE FOR THE ALLEN COUNTY", "partial",
                 '2023-08-15',
                 "9.00",
                 null
@@ -133,7 +134,7 @@ if ($exe) {
                 "DMV",
                 rand(10000, 999999),
                 number_format($r_2, 2),
-                '2023-10-15',
+                '2023-12-15',
                 number_format($r_2, 2),
                 "DMV",
                 "unpaid",
@@ -146,7 +147,7 @@ if ($exe) {
                 "DMV",
                 rand(10000, 999999),
                 number_format($r_1, 2),
-                '2023-10-15',
+                '2023-12-15',
                 number_format($r_1 - 1, 2),
                 "DMV",
                 "partial",
@@ -173,7 +174,7 @@ if ($exe) {
                 "Water / Sewer",
                 rand(10000, 999999),
                 number_format($r_1, 2),
-                '2023-10-15',
+                '2023-12-15',
                 number_format($r_1, 2),
                 "WATTER / SEWER BILL",
                 "unpaid",
@@ -186,7 +187,7 @@ if ($exe) {
                 "Water / Sewer",
                 rand(10000, 999999),
                 number_format($r_3, 2),
-                '2023-10-15',
+                '2023-12-15',
                 number_format($r_3 - 5, 2),
                 "WATTER / SEWER BILL",
                 "partial",
@@ -261,6 +262,9 @@ if ($exe) {
 
             mysqli_query($dbc, $billSql);
         }
+
+        mysqli_query($dbc, "INSERT INTO `user_settings` (`userSettingId`, `userSettingUser`, `userSettingAutopay`, `userSettingNotification`,`userSettingNotificationDay` `userSettingFa`) 
+        VALUES (NULL, '$userId', '0', '0', '1' '0');");
     }
 
     $res['status'] = true;

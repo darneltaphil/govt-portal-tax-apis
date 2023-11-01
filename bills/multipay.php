@@ -5,6 +5,9 @@ include("../db/index.php");
 $requestBody = file_get_contents('php://input');
 $requestBody = json_decode($requestBody, true);
 
+
+$cart = $requestBody["cart"];
+
 $accountNumber = !empty($requestBody["accountNumber"]) ? mysqli_real_escape_string($dbc, trim($requestBody["accountNumber"])) : "";
 $confirmAccountNumber = !empty($requestBody["confirmAccountNumber"]) ? mysqli_real_escape_string($dbc, trim($requestBody["confirmAccountNumber"])) : "";
 $accountType = !empty($requestBody["accountType"]) ? mysqli_real_escape_string($dbc, trim($requestBody["accountType"])) : "";
@@ -39,46 +42,47 @@ $routingNumber = !empty($requestBody["routingNumber"]) ? mysqli_real_escape_stri
 $paymentType = !empty($requestBody["paymentType"]) ? mysqli_real_escape_string($dbc, trim($requestBody["paymentType"])) : "";
 $paymentMethod = !empty($requestBody["paymentMethod"]) ? mysqli_real_escape_string($dbc, trim($requestBody["paymentMethod"])) : "";
 $originalAmount = !empty($requestBody["originalAmount"]) ? mysqli_real_escape_string($dbc, trim($requestBody["originalAmount"])) : "0.00";
-$TxId = time();
 $fees = 0.00;
-if ($paymentType === "amount-due") {
+$txIdArray = [];
+$tt = 0;
+$ttfees = 0;
+for ($i = 1; $i < sizeof($cart); $i++) {
+    $TxId =  time() - $i;
+    array_push($txIdArray, $TxId);
+
+
+
     $s = "UPDATE bills SET 
     billStatus = 'paid' , 
     billRemainingBalance='0.00'
-    WHERE billId='$billId'";
+    WHERE billId=" . $cart[$i] . "";
     $e = mysqli_query($dbc, $s);
 
-    $paymentAmount = $originalAmount;
-    $fees = (($originalAmount * 0.03) < 2.0)
-        ? 2.0
-        : ($originalAmount * 0.03);
-}
+
+    $t = "SELECT * FROM bills WHERE billId=" . $cart[$i] . "";
+    $f = mysqli_query($dbc, $t);
+    $g = mysqli_fetch_array($f);
 
 
-if ($paymentType === "other-amount") {
-    $s = "UPDATE bills SET 
-    billStatus = 'partial' , 
-    billRemainingBalance=$originalAmount-$amount
-    WHERE billId='$billId'";
-    $e = mysqli_query($dbc, $s);
-
-    $paymentAmount = $amount;
-    $fees = (($amount * 0.03) < 2.0)
+    $paymentAmount = $g['billTotalDueAmount'];
+    $fees = (($g['billTotalDueAmount'] * 0.03) < 2.0)
         ?  2.0
-        : ($amount * 0.03);
-}
+        : ($g['billTotalDueAmount'] * 0.03);
 
-if ($userId == '') {
-    $paidBy = 'null';
-    $paidByName = "Online Payment";
-    $paidByWho = 0;
-} else {
-    $paidBy = $userId;
-    $paidByName = "";
-    $paidByWho = 1;
-}
+    $tt = $tt + $paymentAmount;
+    $ttfees = $ttfees + $fees;
 
-$tSql = "INSERT INTO `payments` (
+    if ($userId == '') {
+        $paidBy = 'null';
+        $paidByName = "Online Payment";
+        $paidByWho = 0;
+    } else {
+        $paidBy = $userId;
+        $paidByName = "";
+        $paidByWho = 1;
+    }
+
+    $tSql = "INSERT INTO `payments` (
         `paymentId`, 
         `paymentBill`, 
         `user`, 
@@ -98,8 +102,8 @@ $tSql = "INSERT INTO `payments` (
         ) 
 
         VALUES (
-            $TxId, 
-        '$billId', 
+        $TxId, 
+        '" . $g['billId'] . "', 
         '$userId', 
         $paidBy, 
         '$paidByName', 
@@ -116,24 +120,26 @@ $tSql = "INSERT INTO `payments` (
         '0');
         ";
 
-$tExe = mysqli_query($dbc, $tSql);
-if ($paymentMethod == 'cash' &&  $userId == 1) {
-    mysqli_query($dbc, "INSERT INTO `operations` (`operationId`, `operationType`, `operationDescription`, `operationAccount`, `operationAmount`, `operationDate`, `operationTime`, `operationBalance`) VALUES (NULL, 'Credit', 'Payment', '1', $paymentAmount+$fees, '" . date('Y-m-d') . "', '" . date('H:i:s') . "', '0');");
-}
-if ($tExe) {
-    switch ($paymentMethod) {
-        case 'ACH':
-            $infoSql = ';';
-            break;
+    $tExe = mysqli_query($dbc, $tSql);
 
-        default:
-            $infoSql = ';';
-            break;
-    }
+    // if ($tExe) {
+    //     switch ($paymentMethod) {
+    //         case 'ACH':
+    //             $infoSql = ';';
+    //             break;
+
+    //         default:
+    //             $infoSql = ';';
+    //             break;
+    //     }
+    // }  
 }
+
 
 $res['status'] = true;
 $res['message'] = "Payment successful";
-$res['data'] = $TxId;
+$res['data'] = $txIdArray;
+$res['amount'] = $tt;
+$res['fees'] = $ttfees;
 echo json_encode($res);
 exit();

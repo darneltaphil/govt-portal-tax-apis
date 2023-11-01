@@ -14,6 +14,7 @@ $find = mysqli_query($dbc, "SELECT * FROM till_balance WHERE setDate ='" . date(
 if (mysqli_num_rows($find) > 0) {
     $exe = mysqli_query($dbc, "UPDATE `till_balance` SET `startAmount` = '$till1'  WHERE `till_balance`.`till` = '1' AND `setDate` = '" . date("Y-m-d") . "';");
     $exe_ = mysqli_query($dbc, "UPDATE `till_balance` SET `startAmount` = '$till2'  WHERE `till_balance`.`till` = '2' AND `setDate` = '" . date("Y-m-d") . "';");
+
     mysqli_query($dbc, "UPDATE `accounts` SET `accountBalance` = '$till1' WHERE `accounts`.`accountId` = 1;");
     mysqli_query($dbc, "UPDATE `accounts` SET `accountBalance` = '$till2' WHERE `accounts`.`accountId` = 2;");
 
