@@ -1,0 +1,190 @@
+<html>
+
+<head>
+    <style>
+        @page {
+            sheet-size: A4;
+            margin-top: 1.5cm;
+            margin-left: 1cm;
+            margin-right: 1cm;
+            margin-bottom: 1.2cm;
+        }
+
+        @page toc {
+            sheet-size: A4;
+        }
+
+        .header td {
+            padding-left: 3mm;
+            padding-right: 3mm;
+            padding-top: 2mm;
+            padding-bottom: 2mm;
+        }
+    </style>
+</head>
+
+<body style="margin-left: 60px; margin-right: 60px; margin-top: 80px; margin-bottom: 20px; background: white;">
+    <table style="width: 100%; border: 1px solid black;" class="header" cellSpacing="0">
+        <tbody>
+            <tr>
+                <td style="border: 1px solid black; width: 215px; font-weight: bold;" rowspan="2">State of Alabama
+                    <br />Unified
+                    Judicial System
+                </td>
+                <td style="border: 1px solid black; text-align: center;" rowspan="4">
+                    <span style="font-weight: bold; font-size: 18px;">WAIVER OF COUNSEL</span><br /><br />
+                    <span style="font-size: 16px;">{{portal_name}}</span>
+                </td>
+                <td style="border: 1px solid black; width: 185px; border-bottom: none; font-weight: bold;">Case Number:
+                </td>
+            </tr>
+            <tr>
+                <td align="right" style="border: 1px solid black; border-top: none; padding-top: 0; padding-left: 0;">
+                    {{field_1}}
+                </td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid black; font-weight: bold;" rowspan="2">Form: CR-2 Rev 10/2018</td>
+                <td style="border: 1px solid black; font-weight: bold; border-bottom: none;">Date:</td>
+            </tr>
+            <tr>
+                <td align="right" style="border: 1px solid black; border-top: none; padding-top: 0; padding-left: 0;">
+                    {{date}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table style="width: 100%; border: 1px solid black; border-bottom: none; padding-left: 20px; padding-right: 20px;"
+        cellSpacing="10">
+        <tbody>
+            <tr>
+                <td style="height: 20px;"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td style="width: 250px; font-weight: bold;">IN THE
+                    MUNICIPAL COURT OF</td>
+                <td style="border-bottom: 1px solid black; padding-bottom: 0;">{{portal_name}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <table style="width: 100%; border: 1px solid black; border-top: none; padding-left: 20px; padding-right: 20px;"
+        cellSpacing="10">
+        <tbody>
+            <tr>
+                <td style="width: 30px; font-weight: bold;">VS.</td>
+                <td style="border-bottom: 1px solid black; padding-bottom: 0;">{{field_0}}</td>
+            </tr>
+            <tr>
+                <td style="height: 16px;"></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+    <table style="width: 100%; border-left: 1px solid black; border-right: 1px solid black; padding: 10px 20px; padding-bottom: 5mm;">
+        <tr>
+            <td>
+                I, <span style="border-bottom: 1px solid black;">{{field_0}}</span>.
+                Defendant in the above case, having been informed of my rights to the assistance of counsel
+                and of the fact that the Court will appoint counsel if I am financially unable to obtain counsel, and
+                understanding these rights, do hereby voluntarily, of my own free will knowingly, and intelligently forego and
+                waive the right to the assistance of counsel. I have been advised that I may withdraw, I have the right to
+                appointed or retained counsel at any stage of the proceedings. I understand that I will not be entitled to
+                repeat any proceeding held or waived prior to that withdrawal solely on the ground of the subsequent appointment
+                or retention of counsel.
+            </td>
+        </tr>
+    </table>
+    <table
+        style="width: 100%; padding-top: 1mm; padding-bottom: 3mm; border: 1.8px solid black; border-top: none; border-bottom: none; padding-left: 3mm; padding-right: 3mm;"
+        cellSpacing="5">
+        <tbody>
+            <tr>
+                <td style="width: 150px;">Charge Description</td>
+                <td style="border-bottom: 1px solid black;">{{field_2}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <table
+        style="width: 100%; padding-bottom: 3mm; border: 1.8px solid black; border-top: none; border-bottom: none; padding-left: 3mm; padding-right: 3mm;"
+        cellSpacing="5">
+        <tbody>
+            <tr>
+                <td style="width: 50px;">Date:</td>
+                <td style="border-bottom: 1px solid black;">{{today}}</td>
+                <td style="width: 3cm;"></td>
+                <td style="width: 80px;">Defendant:</td>
+                <td style="border-bottom: 1px solid black;"><img style="height: 32px;" src="{{signature}}"></td>
+            </tr>
+        </tbody>
+    </table>
+    <table style="width: 100%; border: 1.8px solid black; border-top: none; border-bottom: none;" class="header"
+        cellSpacing="5">
+        <tbody>
+            <tr>
+                <td style="width: 30px; height: 10px; padding-top: 0;"> □ </td>
+                <td>It appearing that the foregoing waiver of counsel is made by Defendant knowingly, intelligently, and
+                    voluntarily, it is ORDERED that it be and the same is hereby accepted subject to further order of
+                    the Court.
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 30px; height: 10px; padding-top: 0;"> □ </td>
+                <td>It appearing that the Defendant has not made a knowing, intelligent and voluntary waiver of his/her
+                    right to council, it is ORDERED that:
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table style="width: 100%; border: 1.8px solid black; border-top: none; border-bottom: none;" class="header"
+        cellSpacing="5">
+        <tbody>
+            <tr>
+                <td style="width: 30px; padding-top: 0;"></td>
+                <td style="width: 10px; padding-top: 0;"> □ </td>
+                <td>the case is continued to ______________________ to
+                    afford the Defendant time to obtain counsel.</td>
+            </tr>
+            <tr>
+                <td style="width: 30px; padding-top: 0;"></td>
+                <td style="width: 10px; padding-top: 0;"> □ </td>
+                <td>the order appointing counsel heretofore entered in this case remains in full force and effect.</td>
+            </tr>
+            <tr>
+                <td style="width: 30px; padding-top: 0;"></td>
+                <td style="width: 10px; padding-top: 0;"> □ </td>
+                <td>an order appointing counsel to represent the Defendant will be entered by the Court.</td>
+            </tr>
+            <tr>
+                <td style="width: 30px; padding-top: 0;"></td>
+                <td style="width: 10px; padding-top: 0;"> □ </td>
+                <td>it appearing that the Defendant has made an effective waiver of his/her right to counsel, but that
+                    there are compelling reasons for appointment of advisory counsel, it is ORDERED that ______________________ , Attorney at
+                    Law, is hereby appointed to advise the Defendant of all stages of the proceedings. Notice of all
+                    matters of which the Defendant is notified shall also be given to advisory counsel.</td>
+            </tr>
+        </tbody>
+    </table>
+    <table style="width: 100%; border: 1.8px solid black; border-top: none; padding: 3mm;" cellSpacing="8">
+        <tbody>
+            <tr>
+                <td style="width: 50px;">Date:</td>
+                <td style="border-bottom: 1px solid black;"></td>
+                <td style="width: 3cm;"></td>
+                <td style="width: 50px;">Judge:</td>
+                <td style="border-bottom: 1px solid black;"></td>
+            </tr>
+        </tbody>
+    </table>
+    <table style="width: 100%; margin-top: 0.5cm;">
+        <tr>
+            <td style="width: 80px;">&nbsp;&nbsp;&nbsp; Report:</td>
+            <td>CS801</td>
+            <td>{{date}}</td>
+            <td>{{time}}</td>
+            <td>S P R L</td>
+        </tr>
+    </table>
+</body>
+
+</html>

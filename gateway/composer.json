@@ -1,0 +1,9 @@
+{
+    "require": {
+        "mpdf/mpdf": "6.1.4",
+        "thingengineer/mysqli-database-class": "dev-master",
+        "phpmailer/phpmailer": "5.2.28",
+        "twilio/sdk": "5.42",
+        "vlucas/phpdotenv": "4.1"
+    }
+}

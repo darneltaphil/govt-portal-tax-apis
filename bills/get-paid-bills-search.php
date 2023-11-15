@@ -5,9 +5,13 @@ include("../db/index.php");
 $requestBody = file_get_contents('php://input');
 $requestBody = json_decode($requestBody, true);;
 
+$clerk = isset($requestBody["clerk"]) ? mysqli_real_escape_string($dbc, clean_text($requestBody['clerk'])) : '0';
+$department = isset($requestBody["department"]) ? mysqli_real_escape_string($dbc, clean_text($requestBody['department'])) : '0';
+$paymentType = isset($requestBody["paymentType"]) ? mysqli_real_escape_string($dbc, clean_text($requestBody['paymentType'])) : 'all';
 $userId = isset($requestBody["userId"]) ? mysqli_real_escape_string($dbc, clean_text($requestBody['userId'])) : 1;
 $from = isset($requestBody["from"]) ?  mysqli_real_escape_string($dbc, clean_text($requestBody['from'])) : '';
 $to =  isset($requestBody["to"]) ? mysqli_real_escape_string($dbc, clean_text($requestBody['to'])) : '';
+
 
 $exe = mysqli_query($dbc, "SELECT * FROM paid_bill_view WHERE billStatus='paid' AND paymentDate BETWEEN '$from' and '$to' ORDER BY paymentDate DESC");
 if (mysqli_num_rows($exe) > 0) {
